@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>OSBot Map</title>
+    <link rel="stylesheet" href="css/external/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.3/leaflet.css"/>
+    <link rel="stylesheet" href="http://leaflet.github.io/Leaflet.draw/leaflet.draw.css">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/code.css">
+    <script data-main="js/app" src="js/external/require.js"></script>
+</head>
+<body>
+<div class="container-fluid" id="container">
+    <div class="col-lg-3 col-md-5 col-sm-4 col-xs-4" id="output-container"
+         style="display:none;">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                  <select class="form-control" id="output-type">
+                      <option>Array</option>
+                      <option>List</option>
+                      <option>Arrays.asList</option>
+                  </select>
+            </div>
+            <div class="panel-body">
+                <pre><code id="code-output" contenteditable="true"></code></pre>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="map-container">
+        <div id="map"></div>
+    </div>
+</div>
+</body>
+</html>
