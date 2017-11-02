@@ -173,7 +173,7 @@ define("main", ['domReady!', 'jquery', 'jqueryui', 'bootstrap', 'leaflet', 'Posi
             map.removeLayer(layer);
           }
           layer = L.tileLayer('https://raw.githubusercontent.com/Explv/osrs_map_full/master/' + z + '/{z}/{x}/{y}.png', {
-              minZoom: 7,
+              minZoom: 4,
               maxZoom: 11,
               attribution: 'Map data',
               noWrap: true,
