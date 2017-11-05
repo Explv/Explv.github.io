@@ -24,7 +24,7 @@ define("Area", ['leaflet', 'Drawable', 'Position'], function(L, Drawable, Positi
             var newEndPosition = new Position(this.endPosition.x, this.endPosition.y, this.startPosition.z);
 
             if (this.endPosition.x >= this.startPosition.x) {
-                newEndPosition.x += 1;
+				newEndPosition.x += 1;
             } else {
                 newStartPosition.x += 1;
             }

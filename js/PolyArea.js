@@ -63,8 +63,8 @@ define("PolyArea", ['jquery', "Drawable", "Position"], function ($, Drawable, Po
 
             for (var i = 0; i < latLngs.length; i++) {
                 var point = this.map.project(latLngs[i], this.map.getMaxZoom());
-                point.x -= 8;
-                point.y += 8;
+                point.x -= RS_TILE_WIDTH_PX / 2;
+                point.y += RS_TILE_HEIGHT_PX / 2;
                 latLngs[i] = this.map.unproject(point, this.map.getMaxZoom());
             }
 

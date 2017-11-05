@@ -10,7 +10,7 @@ define("main", ['domReady!', 'jquery', 'jqueryui', 'bootstrap', 'leaflet', 'Posi
         var map = L.map('map', {
             //maxBounds: L.latLngBounds(L.latLng(-40, -180), L.latLng(85, 153))
             zoomControl:false
-        }).setView([-73, -112], 7);
+        }).setView([-82, -138], 7);
 
         /*
           Init custom controls
@@ -172,7 +172,7 @@ define("main", ['domReady!', 'jquery', 'jqueryui', 'bootstrap', 'leaflet', 'Posi
           if (layer !== undefined) {
             map.removeLayer(layer);
           }
-          layer = L.tileLayer('https://raw.githubusercontent.com/Explv/osrs_map_full/master/' + z + '/{z}/{x}/{y}.png', {
+          layer = L.tileLayer('https://raw.githubusercontent.com/Explv/osrs_map_full_20171105/master/' + z + '/{z}/{x}/{y}.png', {
               minZoom: 4,
               maxZoom: 11,
               attribution: 'Map data',

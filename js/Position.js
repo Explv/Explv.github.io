@@ -1,5 +1,10 @@
 'use strict';
 
+const MAP_HEIGHT_PX = 270080; // Total height of the map in px at max zoom level
+const RS_TILE_WIDTH_PX = 32, RS_TILE_HEIGHT_PX = 32; // Width and height in px of an rs tile at max zoom level
+const RS_OFFSET_X = 1152; // Amount to offset x coordinate to get correct value
+const RS_OFFSET_Y = 9928; // Amount to offset y coordinate to get correct value
+
 define("Position", ['leaflet', 'Drawable'], function(L, Drawable) {
 
     return class Position extends Drawable {
@@ -13,21 +18,21 @@ define("Position", ['leaflet', 'Drawable'], function(L, Drawable) {
 
         static fromLatLng(map, latLng, z) {
             var point = map.project(latLng, map.getMaxZoom());
-            var y = 53504 - point.y;
-            y = Math.round((y - 32) / 32) + 14776;
-            var x = Math.round((point.x - 32) / 32);
+            var y = MAP_HEIGHT_PX - point.y;
+            y = Math.round((y - RS_TILE_HEIGHT_PX) / RS_TILE_HEIGHT_PX) + RS_OFFSET_Y;
+            var x = Math.round((point.x - RS_TILE_WIDTH_PX) / RS_TILE_WIDTH_PX) + RS_OFFSET_X;
             return new Position(x, y, z);
         }
-
+		
         toLatLng(map) {
-            var x = (this.x * 32) + 8;
-            var y = (53504 - ((this.y - 14776) * 32)) - 8;
+            var x = ((this.x - RS_OFFSET_X) * RS_TILE_WIDTH_PX) + (RS_TILE_WIDTH_PX / 4);
+            var y = (MAP_HEIGHT_PX - ((this.y - RS_OFFSET_Y) * RS_TILE_HEIGHT_PX)) - (RS_TILE_HEIGHT_PX / 4);
             return map.unproject(L.point(x, y), map.getMaxZoom());
         }
 
         toCentreLatLng(map) {
-            var x = ((this.x + 0.5) * 32);
-            var y = ((53504 - ((this.y + 0.5 - 14776) * 32)));
+            var x = ((this.x + 0.5 - RS_OFFSET_X) * RS_TILE_WIDTH_PX)  + (RS_TILE_WIDTH_PX / 4);
+            var y = (MAP_HEIGHT_PX - ((this.y + 0.5 - RS_OFFSET_Y) * RS_TILE_HEIGHT_PX)) - (RS_TILE_HEIGHT_PX / 4);
             return map.unproject(L.point(x, y), map.getMaxZoom());
         }
 
@@ -39,10 +44,10 @@ define("Position", ['leaflet', 'Drawable'], function(L, Drawable) {
 
         toLeaflet(map) {
             var point = map.project(this.toLatLng(map), map.getMaxZoom());
-            var startX = (Math.floor(point.x / 32) * 32) + 8;
-            var startY = (Math.floor(point.y / 32) * 32) - 8;
-            var endX = startX + 32;
-            var endY = startY + 32;
+            var startX = (Math.floor(point.x / RS_TILE_WIDTH_PX) * RS_TILE_WIDTH_PX) + (RS_TILE_WIDTH_PX / 4);
+            var startY = (Math.floor(point.y / RS_TILE_HEIGHT_PX) * RS_TILE_HEIGHT_PX) - (RS_TILE_HEIGHT_PX / 4);
+            var endX = startX + RS_TILE_WIDTH_PX;
+            var endY = startY + RS_TILE_HEIGHT_PX;
             var startLatLng = map.unproject(L.point(startX, startY), map.getMaxZoom());
             var endLatLng = map.unproject(L.point(endX, endY), map.getMaxZoom());
 
