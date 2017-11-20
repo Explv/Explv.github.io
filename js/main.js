@@ -1,10 +1,10 @@
 'use strict';
 
-define("main", ['domReady!', 'jquery', 'jqueryui', 'bootstrap', 'leaflet', 'Position', 'Path', 'Area', 'Areas', 'PolyArea', 'SyntaxHighlighter', 'locations'],
+define("main", ['domReady!', 'jquery', 'jqueryui', 'bootstrap', 'leaflet', 'Position', 'Path', 'Area', 'Areas', 'PolyArea', 'Grid', 'SyntaxHighlighter', 'locations'],
 
-    function (doc, $, $ui, Bootstrap, L, Position, Path, Area, Areas, PolyArea, SyntaxHighlighter, locations) {
+    function (doc, $, $ui, Bootstrap, L, Position, Path, Area, Areas, PolyArea, Grid, SyntaxHighlighter, locations) {
 
-        var OutputType = Object.freeze({ARRAY: 1, LIST: 2, ARRAYS_AS_LIST: 3});
+        var OutputType = Object.freeze({ARRAY: 1, LIST: 2, ARRAYS_AS_LIST: 3, RAW: 4});
         var outputType = OutputType.ARRAY;
 
         var map = L.map('map', {
@@ -23,7 +23,7 @@ define("main", ['domReady!', 'jquery', 'jqueryui', 'bootstrap', 'leaflet', 'Posi
             var container = L.DomUtil.create('div');
             container.id = 'titleLabel';
             container.href = 'http://osbot.org/forum/user/192661-explv/';
-            container.innerHTML = "<span id='explv'>Explv</span>'s OSBot Map";
+            container.innerHTML = "<span id='explv'>Explv</span>'s Map";
 
             L.DomEvent.disableClickPropagation(container);
             return container;
@@ -162,7 +162,26 @@ define("main", ['domReady!', 'jquery', 'jqueryui', 'bootstrap', 'leaflet', 'Posi
             }
         });
         map.addControl(new labelControl());
+		
+		var gridControl = L.Control.extend({
+            options: {
+              position: 'topleft'
+            },
+            onAdd: function(map) {
+              var container = L.DomUtil.create('div', 'leaflet-bar leaflet-control');
+              container.style.background = 'none';
+              container.style.width = '130px';
+              container.style.height = 'auto';
 
+              var labelsButton = L.DomUtil.create('a', 'leaflet-bar leaflet-control leaflet-control-custom', container);
+              labelsButton.id = 'toggle-region-grid';
+              labelsButton.innerHTML = 'Toggle Region Grid';
+
+              L.DomEvent.disableClickPropagation(container);
+              return container;
+            }
+        });
+        map.addControl(new gridControl());
 
         var z = 0;
 
@@ -215,6 +234,16 @@ define("main", ['domReady!', 'jquery', 'jqueryui', 'bootstrap', 'leaflet', 'Posi
               mapLabels.addTo(map);
             }
         });
+		
+		var grid = new Grid(map, new L.FeatureGroup());
+		
+		$("#toggle-region-grid").click(function() {
+            if (!grid.isVisible()) {
+              grid.show();
+            } else {
+              grid.hide();
+            }
+        });
 
         var path = new Path(map, new L.FeatureGroup());
         var areas = new Areas(map, new L.FeatureGroup());
@@ -243,6 +272,9 @@ define("main", ['domReady!', 'jquery', 'jqueryui', 'bootstrap', 'leaflet', 'Posi
                 case "Arrays.asList":
                     outputType = OutputType.ARRAYS_AS_LIST;
                     break;
+				case "Raw":
+					outputType = OutputType.RAW;
+					break;
             }
             output();
         })
@@ -419,6 +451,9 @@ define("main", ['domReady!', 'jquery', 'jqueryui', 'bootstrap', 'leaflet', 'Posi
                     case OutputType.ARRAYS_AS_LIST:
                         output += currentDrawable.toArraysAsListString();
                         break;
+					case OutputType.RAW:
+					    output += currentDrawable.toRawString();
+						break;
                 }
             }
 

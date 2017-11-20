@@ -115,5 +115,13 @@ define("Areas", ['jquery', 'Area', 'Position'], function ($, Area, Position) {
             }
             return "";
         }
+		
+		toRawString() {
+			var output = "";
+			for (var i = 0; i < this.areas.length; i ++) {
+				output += `${this.areas[i].startPosition.x},${this.areas[i].startPosition.y},${this.areas[i].endPosition.x},${this.areas[i].endPosition.y}\n`;
+			}
+			return output;
+		}
     };
 });

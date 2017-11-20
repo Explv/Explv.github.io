@@ -148,5 +148,13 @@ define("Path", ["Position"], function (Position) {
             }
             return "";
         }
+		
+		toRawString() {
+			var output = "";
+			for (var i = 0; i < this.positions.length; i ++) {
+				output += `${this.positions[i].x},${this.positions[i].y},${this.positions[i].z}\n`;
+			}
+			return output;
+		}
     }
 });
