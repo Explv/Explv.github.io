@@ -12,10 +12,10 @@ define("Grid", ["Position"], function (Position) {
 			var minX = 0;
 			var minY = 0;
 			
-			var maxX = 4000;
-			var maxY = 11000;
+			var maxX = 4032;
+			var maxY = 11008;
 			
-			for (var x = minX; x < maxX; x+=64) {
+			for (var x = minX; x <= maxX; x+=64) {
 				var startPos = new Position(x, minY, 0);
 				var endPos = new Position(x, maxY, 0);
 			
@@ -23,7 +23,7 @@ define("Grid", ["Position"], function (Position) {
                 this.featureGroup.addLayer(line);
 			}
 			
-			for (var y = minY; y < maxY; y+=64) {
+			for (var y = minY; y <= maxY; y+=64) {
 				var startPos = new Position(minX, y, 0);
 				var endPos = new Position(maxX, y, 0);
 			
