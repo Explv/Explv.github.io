@@ -1,15 +1,18 @@
 'use strict';
 
-define("main", ['domReady!', 'jquery', 'jqueryui', 'bootstrap', 'leaflet', 'Position', 'Path', 'Area', 'Areas', 'PolyArea', 'Grid', 'SyntaxHighlighter', 'locations'],
+// TODO: Stop being lazy and clean up this damn file
 
-    function (doc, $, $ui, Bootstrap, L, Position, Path, Area, Areas, PolyArea, Grid, SyntaxHighlighter, locations) {
+define("main", ['domReady!', 'jquery', 'jqueryui', 'bootstrap', 'leaflet', 'Position', 'Path', 'Area', 'Areas', 'PolyArea', 'Grid', 'SyntaxHighlighter', 'locations','L.CanvasLayer'],
+
+    function (doc, $, $ui, Bootstrap, L, Position, Path, Area, Areas, PolyArea, Grid, SyntaxHighlighter, locations, canvasLayer) {
 
         var OutputType = Object.freeze({ARRAY: 1, LIST: 2, ARRAYS_AS_LIST: 3, RAW: 4});
         var outputType = OutputType.ARRAY;
 
         var map = L.map('map', {
             //maxBounds: L.latLngBounds(L.latLng(-40, -180), L.latLng(85, 153))
-            zoomControl:false
+            zoomControl:false,
+			renderer: L.canvas()
         }).setView([-82, -138], 7);
 
         /*
@@ -182,6 +185,26 @@ define("main", ['domReady!', 'jquery', 'jqueryui', 'bootstrap', 'leaflet', 'Posi
             }
         });
         map.addControl(new gridControl());
+		
+		var regionLabelsControl = L.Control.extend({
+            options: {
+              position: 'topleft'
+            },
+            onAdd: function(map) {
+              var container = L.DomUtil.create('div', 'leaflet-bar leaflet-control');
+              container.style.background = 'none';
+              container.style.width = '130px';
+              container.style.height = 'auto';
+
+              var labelsButton = L.DomUtil.create('a', 'leaflet-bar leaflet-control leaflet-control-custom', container);
+              labelsButton.id = 'toggle-region-labels';
+              labelsButton.innerHTML = 'Toggle Region Labels';
+
+              L.DomEvent.disableClickPropagation(container);
+              return container;
+            }
+        });
+        map.addControl(new regionLabelsControl());
 
         var z = 0;
 
@@ -242,6 +265,51 @@ define("main", ['domReady!', 'jquery', 'jqueryui', 'bootstrap', 'leaflet', 'Posi
               grid.show();
             } else {
               grid.hide();
+            }
+        });
+		
+		var myCustomCanvasDraw= function(){
+            this.onLayerDidMount = function (){      };
+			  
+            this.onLayerWillUnmount  = function(){};
+			  
+            this.setData = function (data){
+              this.needRedraw();
+            };
+			  
+            this.onDrawLayer = function (info){
+			    var ctx = info.canvas.getContext('2d');
+				ctx.clearRect(0, 0, info.canvas.width, info.canvas.height);
+				ctx.font = '10pt Calibri';
+				ctx.fillStyle = 'white';
+				ctx.textAlign="center"; 
+			
+				for (var x = 1152; x < 3904; x += 64) {
+					for (var y = 2496; y < 10432; y += 64) {
+						var position = new Position(x + 32, y + 32, 0);
+						var latLng = position.toCentreLatLng(map);
+					
+						var regionId = String((x >> 6) * 256 + (y >> 6));
+								
+						var canvasPoint = info.layer._map.latLngToContainerPoint(latLng);
+						ctx.fillText(regionId, canvasPoint.x, canvasPoint.y);
+					}
+				}
+            } 
+        }
+        myCustomCanvasDraw.prototype = new L.CanvasLayer();
+     
+        var regionLabelsLayer = new myCustomCanvasDraw();
+		
+		var regionLabelsVisible = false;
+				
+		$("#toggle-region-labels").click(function() {
+            if (!regionLabelsVisible) {
+              map.addLayer(regionLabelsLayer);
+			  regionLabelsVisible = true;
+            } else {
+              map.removeLayer(regionLabelsLayer);
+			  regionLabelsVisible = false;
             }
         });
 

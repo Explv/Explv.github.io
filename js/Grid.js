@@ -9,11 +9,11 @@ define("Grid", ["Position"], function (Position) {
             this.featureGroup = featureGroup;
 			this.visible = false;
 			
-			var minX = 0;
-			var minY = 0;
+			var minX = 1152;
+			var minY = 2496;
 			
-			var maxX = 4032;
-			var maxY = 11008;
+			var maxX = 3904;
+			var maxY = 10432;
 			
 			for (var x = minX; x <= maxX; x+=64) {
 				var startPos = new Position(x, minY, 0);
