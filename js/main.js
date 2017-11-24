@@ -268,8 +268,10 @@ define("main", ['domReady!', 'jquery', 'jqueryui', 'bootstrap', 'leaflet', 'Posi
             }
         });
 		
+		var regionLabelsEnabled = false;
+		
 		var myCustomCanvasDraw= function(){
-            this.onLayerDidMount = function (){      };
+            this.onLayerDidMount = function (){};
 			  
             this.onLayerWillUnmount  = function(){};
 			  
@@ -280,37 +282,34 @@ define("main", ['domReady!', 'jquery', 'jqueryui', 'bootstrap', 'leaflet', 'Posi
             this.onDrawLayer = function (info){
 			    var ctx = info.canvas.getContext('2d');
 				ctx.clearRect(0, 0, info.canvas.width, info.canvas.height);
-				ctx.font = '10pt Calibri';
-				ctx.fillStyle = 'white';
-				ctx.textAlign="center"; 
+				
+				if (regionLabelsEnabled) {
+				
+					ctx.font = '10pt Calibri';
+					ctx.fillStyle = 'white';
+					ctx.textAlign="center"; 
 			
-				for (var x = 1152; x < 3904; x += 64) {
-					for (var y = 2496; y < 10432; y += 64) {
-						var position = new Position(x + 32, y + 32, 0);
-						var latLng = position.toCentreLatLng(map);
+					for (var x = 1152; x < 3904; x += 64) {
+						for (var y = 2496; y < 10432; y += 64) {
+							var position = new Position(x + 32, y + 32, 0);
+							var latLng = position.toCentreLatLng(map);
 					
-						var regionId = String((x >> 6) * 256 + (y >> 6));
+							var regionId = String((x >> 6) * 256 + (y >> 6));
 								
-						var canvasPoint = info.layer._map.latLngToContainerPoint(latLng);
-						ctx.fillText(regionId, canvasPoint.x, canvasPoint.y);
+							var canvasPoint = info.layer._map.latLngToContainerPoint(latLng);
+							ctx.fillText(regionId, canvasPoint.x, canvasPoint.y);
+						}
 					}
 				}
             } 
         }
         myCustomCanvasDraw.prototype = new L.CanvasLayer();
-     
         var regionLabelsLayer = new myCustomCanvasDraw();
+		regionLabelsLayer.addTo(map);
 		
-		var regionLabelsVisible = false;
-				
 		$("#toggle-region-labels").click(function() {
-            if (!regionLabelsVisible) {
-              map.addLayer(regionLabelsLayer);
-			  regionLabelsVisible = true;
-            } else {
-              map.removeLayer(regionLabelsLayer);
-			  regionLabelsVisible = false;
-            }
+			regionLabelsEnabled = !regionLabelsEnabled;
+			regionLabelsLayer.drawLayer();
         });
 
         var path = new Path(map, new L.FeatureGroup());
