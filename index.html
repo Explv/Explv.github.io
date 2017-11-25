@@ -2,14 +2,46 @@
 <html>
 <head>
     <title>OSBot Map</title>
-    <link rel="stylesheet" href="css/external/bootstrap.min.css">
+
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.2.0/leaflet.css"/>
-    <!--<link rel="stylesheet" href="http://leaflet.github.io/Leaflet.draw/leaflet.draw.css">-->
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet"
+          integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/code.css">
-    <script data-main="js/app" src="js/external/require.js"></script>
+
+    <!-- Get jQuery JS from Google CDN, or fallback to local copy -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        window.jQuery || document.write('<script type="text/javascript" src="js/external/jquery-3.2.1.min.js\"><\/script>');
+    </script>
+
+    <!-- Get jQuery UI JS from Google CDN, or fallback to local copy -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script type="text/javascript">
+        window.jQuery.ui || document.write('<script type="text/javascript" src="js/external/jquery-ui.min.js\"><\/script>');
+    </script>
+
+    <!-- Get Bootstrap JS from Bootstrap CDN, or fallback to local copy -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
+    <script>
+        window.jQuery.fn.modal || document.write('<script type="text/javascript" src="js/external/bootstrap.min.js\"><\/script>');
+    </script>
+
+    <!-- Get Leaflet JS from CDNJS, or fallback to local copy -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.2.0/leaflet.js"
+            integrity="sha256-kdEnCVOWosn3TNsGslxB8ffuKdrZoGQdIdPwh7W1CsE=" crossorigin="anonymous"></script>
+    <script>
+        window.L || document.write('<script type="text/javascript" src="js/external/leaflet.js\"><\/script>');
+    </script>
+
+    <!-- Load main JS script -->
+    <script type="module" src="js/main.js"></script>
 </head>
 <body>
 <div class="container-fluid" id="container">
@@ -17,12 +49,12 @@
          style="display:none;">
         <div class="panel panel-default">
             <div class="panel-heading">
-                  <select class="form-control" id="output-type">
-                      <option>Array</option>
-                      <option>List</option>
-                      <option>Arrays.asList</option>
-					  <option>Raw</option>
-                  </select>
+                <select class="form-control" id="output-type">
+                    <option>Array</option>
+                    <option>List</option>
+                    <option>Arrays.asList</option>
+                    <option>Raw</option>
+                </select>
             </div>
             <div class="panel-body">
                 <pre><code id="code-output" contenteditable="true"></code></pre>
