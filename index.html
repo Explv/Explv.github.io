@@ -40,8 +40,11 @@
         window.L || document.write('<script type="text/javascript" src="js/external/leaflet.js\"><\/script>');
     </script>
 
-    <!-- Load main JS script -->
+    <!-- Try to load main JS module -->
     <script type="module" src="js/main.js"></script>
+
+    <!-- If the browser does not support ES6 modules, load the bundled version -->
+    <script nomodule defer src="js/bundle.js"></script>
 </head>
 <body>
 <div class="container-fluid" id="container">
