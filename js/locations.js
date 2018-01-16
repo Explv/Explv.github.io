@@ -222,6 +222,7 @@ export var locations = {
     "Exam Centre": new Position(3363, 3339, 0),
     "The Hollows": new Position(3498, 3381, 0),
     "Mage Training Arena": new Position(3363, 3304, 0),
+    "Mage Training Arena Rooms": new Position(3357, 9666, 0),
     "Duel Arena": new Position(3361, 3232, 0),
     "Mort'ton": new Position(3487, 3283, 0),
     "Abandoned Mine": new Position(3441, 3236, 0),
