@@ -221,7 +221,7 @@ $(document).ready(function () {
         if (layer !== undefined) {
             map.removeLayer(layer);
         }
-        layer = L.tileLayer('https://raw.githubusercontent.com/Explv/osrs_map_full_20171105/master/' + z + '/{z}/{x}/{y}.png', {
+        layer = L.tileLayer('https://raw.githubusercontent.com/Explv/osrs_map_full_20180328/master/' + z + '/{z}/{x}/{y}.png', {
             minZoom: 4,
             maxZoom: 11,
             attribution: 'Map data',
