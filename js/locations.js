@@ -215,7 +215,7 @@ export var locations = {
     "Lumber Yard": new Position(3305, 3505, 0),
     "Digsite": new Position(3362, 3417, 0),
     "River Salve": new Position(3403, 3442, 0),
-    "Canafis": new Position(3495, 3487, 0),
+    "Canifis": new Position(3495, 3487, 0),
     "Morytania": new Position(3467, 3441, 0),
     "Mausoleum": new Position(3503, 3572, 0),
     "Mort Myre Swamp": new Position(3440, 3380, 0),
@@ -271,5 +271,8 @@ export var locations = {
     "Keldagrim": new Position(2855, 10175, 0),
     "Fremennik Slayer Dungeon": new Position(2805, 10001, 0),
     "Taverley Dungeon": new Position(2886, 9811, 0),
-    "Lumbridge Swamp Caves": new Position(3169, 9571, 0)
+    "Lumbridge Swamp Caves": new Position(3169, 9571, 0),
+    "Corsair Cove": new Position(2567, 2856, 0),
+    "Rogue's Den": new Position(3047, 4976, 1),
+    "Myth's Guild": new Position(2457, 2843, 0)
 };
