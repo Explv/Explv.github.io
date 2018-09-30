@@ -79,7 +79,7 @@ export class OSBotAreasConverter extends OSBotConverter {
     
     toJavaList(areas) {
         if (areas.areas.length === 1) {
-            return this.toJavaSingle(areas.areas[0]) + ";";
+            return `${this.javaArea} area = ` + this.toJavaSingle(areas.areas[0]) + ";";
         } else if (areas.areas.length > 1) {
             var output = `List&lt;${this.javaArea}&gt; area = new ArrayList<>();\n`;
             for (var i = 0; i < areas.areas.length; i++) {
@@ -92,7 +92,7 @@ export class OSBotAreasConverter extends OSBotConverter {
     
     toJavaArraysAsList(areas) {
         if (areas.areas.length === 1) {
-            return this.toJavaSingle(areas.areas[0]) + ";";
+            return `${this.javaArea} area = ` + this.toJavaSingle(areas.areas[0]) + ";";
         } else if (areas.areas.length > 1) {
             var output = `List&lt;${this.javaArea}&gt; area = Arrays.asList(\n` +
                 `    new ${this.javaArea}[]{\n`;

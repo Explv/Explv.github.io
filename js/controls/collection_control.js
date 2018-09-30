@@ -20,6 +20,10 @@ import {DreamBotAreasConverter} from '../bot_api_converters/dreambot/dreambot_ar
 import {DreamBotPathConverter} from '../bot_api_converters/dreambot/dreambot_path_converter.js';
 import {DreamBotPolyAreaConverter} from '../bot_api_converters/dreambot/dreambot_polyarea_converter.js';
 
+import {RSPeerAreasConverter} from '../bot_api_converters/rspeer/rspeer_areas_converter.js';
+import {RSPeerPathConverter} from '../bot_api_converters/rspeer/rspeer_path_converter.js';
+import {RSPeerPolyAreaConverter} from '../bot_api_converters/rspeer/rspeer_polyarea_converter.js';
+
 var converters = {
     "OSBot": {
         "areas_converter": new OSBotAreasConverter(),
@@ -35,6 +39,11 @@ var converters = {
         "areas_converter": new DreamBotAreasConverter(),
         "path_converter": new DreamBotPathConverter(),
         "polyarea_converter": new DreamBotPolyAreaConverter()
+    },
+    "RSPeer": {
+        "areas_converter": new RSPeerAreasConverter(),
+        "path_converter": new RSPeerPathConverter(),
+        "polyarea_converter": new RSPeerPolyAreaConverter()
     }
 };
 
