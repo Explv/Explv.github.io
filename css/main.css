@@ -65,14 +65,14 @@ html, body {
     color: #33b5e5;
 }
 
-#output-type {
+#output-container select {
     background: none;
     border: 1px solid #33b5e5;
     color: #FFFFFF;
     max-width: 200px;
 }
 
-#output-type option {
+#output-container option {
     background-color: #121212;
     color: #ffffff;
 }

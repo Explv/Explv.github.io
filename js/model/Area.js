@@ -1,12 +1,10 @@
 'use strict';
 
-import {Drawable} from './Drawable.js';
 import {Position} from './Position.js';
 
-export class Area extends Drawable {
+export class Area {
 
     constructor(startPosition, endPosition) {
-        super();
         this.startPosition = startPosition;
         this.endPosition = endPosition;
     }
@@ -20,7 +18,6 @@ export class Area extends Drawable {
     }
 
     toLeaflet(map) {
-
         var newStartPosition = new Position(this.startPosition.x, this.startPosition.y, this.startPosition.z);
         var newEndPosition = new Position(this.endPosition.x, this.endPosition.y, this.startPosition.z);
 
@@ -46,14 +43,6 @@ export class Area extends Drawable {
                 interactive: false
             }
         );
-    }
-
-    toJavaCode() {
-        var areaDef = `new Area(${this.startPosition.x}, ${this.startPosition.y}, ${this.endPosition.x}, ${this.endPosition.y})`;
-        if (this.startPosition.z > 0) {
-            areaDef += `.setPlane(${this.startPosition.z})`;
-        }
-        return areaDef;
     }
 
     getName() {

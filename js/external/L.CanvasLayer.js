@@ -21,7 +21,7 @@ L.DomUtil.setTransform = L.DomUtil.setTransform || function (el, offset, scale) 
 
 // -- support for both  0.0.7 and 1.0.0 rc2 leaflet
 L.CanvasLayer = (L.Layer ? L.Layer : L.Class).extend({
-    // -- initialized is called on prototype 
+    // -- initialized is called on prototype
     initialize: function (options) {
         this._map = null;
         this._canvas = null;
@@ -152,7 +152,7 @@ L.CanvasLayer = (L.Layer ? L.Layer : L.Class).extend({
     //------------------------------------------------------------------------------
     _animateZoom: function (e) {
         var scale = this._map.getZoomScale(e.zoom);
-        // -- different calc of animation zoom  in leaflet 1.0.3 thanks @peterkarabinovic, @jduggan1 
+        // -- different calc of animation zoom  in leaflet 1.0.3 thanks @peterkarabinovic, @jduggan1
         var offset = L.Layer ? this._map._latLngBoundsToNewLayerBounds(this._map.getBounds(), e.zoom, e.center).min :
             this._map._getCenterOffset(e.center)._multiplyBy(-scale).subtract(this._map._getMapPanePos());
 

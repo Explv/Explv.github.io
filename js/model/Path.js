@@ -4,20 +4,12 @@ import {Position} from './Position.js';
 
 export class Path {
 
-    constructor(map, featureGroup) {
+    constructor(map) {
         this.map = map;
-        this.featureGroup = featureGroup;
+        this.featureGroup = new L.FeatureGroup();
         this.positions = [];
         this.lines = [];
         this.rectangles = [];
-    }
-
-    show() {
-        this.map.addLayer(this.featureGroup);
-    }
-
-    hide() {
-        this.map.removeLayer(this.featureGroup);
     }
 
     add(position) {
@@ -91,69 +83,5 @@ export class Path {
 
         outputPositions.push(endPosition);
         return outputPositions;
-    }
-
-    fromString(text) {
-        this.removeAll();
-        text = text.replace(/\s/g, '');
-        var posPattern = /newPosition\((\d+,\d+,\d)\)/mg;
-        var match;
-        while ((match = posPattern.exec(text))) {
-            var values = match[1].split(",");
-            this.add(new Position(values[0], values[1], values[2]));
-        }
-    }
-
-    toArrayString() {
-        if (this.positions.length == 1) {
-            return this.positions[0].toJavaCode();
-        } else if (this.positions.length > 1) {
-            var output = "Position[] path = {\n";
-            for (var i = 0; i < this.positions.length; i++) {
-                output += `    new Position(${this.positions[i].x}, ${this.positions[i].y}, ${this.positions[i].z})`;
-                if (i != this.positions.length - 1) output += ",";
-                output += "\n";
-            }
-            output += "};";
-            return output;
-        }
-        return "";
-    }
-
-    toListString() {
-        if (this.positions.length == 1) {
-            return this.positions[0].toJavaCode();
-        } else if (this.positions.length > 1) {
-            var output = "List&lt;Position&gt; path = new ArrayList<>();\n";
-            for (var i = 0; i < this.positions.length; i++) {
-                output += `path.add(new Position(${this.positions[i].x}, ${this.positions[i].y}, ${this.positions[i].z}));\n`;
-            }
-            return output;
-        }
-        return "";
-    }
-
-    toArraysAsListString() {
-        if (this.positions.length == 1) {
-            return this.positions[0].toJavaCode();
-        } else if (this.positions.length > 1) {
-            var output = "List&lt;Position&gt; path = Arrays.asList(\n    new Position[]{\n";
-            for (var i = 0; i < this.positions.length; i++) {
-                output += `        new Position(${this.positions[i].x}, ${this.positions[i].y}, ${this.positions[i].z})`;
-                if (i != this.positions.length - 1) output += ",";
-                output += "\n";
-            }
-            output += "    }\n);";
-            return output;
-        }
-        return "";
-    }
-
-    toRawString() {
-        var output = "";
-        for (var i = 0; i < this.positions.length; i++) {
-            output += `${this.positions[i].x},${this.positions[i].y},${this.positions[i].z}\n`;
-        }
-        return output;
     }
 }

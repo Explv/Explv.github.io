@@ -9,8 +9,9 @@
           gtag('js', new Date());
           gtag('config', 'UA-111933116-1');
     </script>
+    <meta charset="utf-8"/>
 
-    <title>OSBot Map</title>
+    <title>Explv's Map</title>
 
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -50,7 +51,7 @@
     </script>
 
     <!-- Try to load main JS module -->
-    <script type="module" src="js/main.js"></script>
+    <script type="module" src="js/map.js"></script>
 
     <!-- If the browser does not support ES6 modules, load the bundled version -->
     <script nomodule defer src="js/bundle.js"></script>
@@ -66,6 +67,11 @@
                     <option>List</option>
                     <option>Arrays.asList</option>
                     <option>Raw</option>
+                </select>
+                <select class="form-control" id="bot-api">
+                    <option>OSBot</option>
+                    <option>TRiBot</option>
+                    <option>DreamBot</option>
                 </select>
             </div>
             <div class="panel-body">
