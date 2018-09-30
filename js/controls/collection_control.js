@@ -187,9 +187,6 @@ export var CollectionControl = L.Control.extend({
 
     _toggleCollectionMode: function(drawable, converter) {
         if (this._currentDrawable === drawable) {
-            this._currentDrawable = undefined;
-            this._currentConverter = undefined;
-            
             this._editing = false;
 
             this._toggleOutputContainer();
@@ -200,6 +197,10 @@ export var CollectionControl = L.Control.extend({
             if (this._drawnMouseArea !== undefined) {
                 this._map.removeLayer(this._drawnMouseArea);
             }
+            
+            this._currentDrawable = undefined;
+            this._currentConverter = undefined;
+            
             this._outputCode();
             return;
         }
