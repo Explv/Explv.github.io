@@ -419,7 +419,7 @@ class OSBotAreasConverter extends OSBotConverter {
     
     toJavaList(areas) {
         if (areas.areas.length === 1) {
-            return this.toJavaSingle(areas.areas[0]) + ";";
+            return `${this.javaArea} area = ` + this.toJavaSingle(areas.areas[0]) + ";";
         } else if (areas.areas.length > 1) {
             var output = `List&lt;${this.javaArea}&gt; area = new ArrayList<>();\n`;
             for (var i = 0; i < areas.areas.length; i++) {
@@ -432,7 +432,7 @@ class OSBotAreasConverter extends OSBotConverter {
     
     toJavaArraysAsList(areas) {
         if (areas.areas.length === 1) {
-            return this.toJavaSingle(areas.areas[0]) + ";";
+            return `${this.javaArea} area = ` + this.toJavaSingle(areas.areas[0]) + ";";
         } else if (areas.areas.length > 1) {
             var output = `List&lt;${this.javaArea}&gt; area = Arrays.asList(\n` +
                 `    new ${this.javaArea}[]{\n`;
@@ -802,6 +802,143 @@ class DreamBotPolyAreaConverter extends OSBotPolyAreaConverter {
     }
 }
 
+class RSPeerAreasConverter extends OSBotAreasConverter {
+    
+    constructor() {
+        super();
+        this.javaArea = "Area";
+        this.javaPosition = "Position";
+    }
+    
+    /*
+    API Doc:
+        https://rspeer.org/javadocs/org/rspeer/runetek/api/movement/position/Area.html
+        https://rspeer.org/javadocs/org/rspeer/runetek/api/movement/position/Position.html
+
+    Area.rectangular(int minX, int minY, int maxX, int maxY)
+    Area.rectangular(int minX, int minY, int maxX, int maxY, int floorLevel) 
+    Area.rectangular(Position start, Position end) 
+    Area.rectangular(Position start, Position end, int floorLevel)
+    
+    Position(int worldX, int worldY)
+    Position(int worldX, int worldY, int floorLevel)
+    */
+    fromJava(text, areas) {        
+        areas.removeAll();
+        text = text.replace(/\s/g, '');
+        
+        var areasPattern = ``;
+        
+        var areasPattern = `(?:` +
+                               `${this.javaArea}\\.rectangular` + 
+                                   `\\((\\d+,\\d+,\\d+,\\d+(?:,\\d+)?)\\)` +
+                                   `|` +
+                                   `\\(new${this.javaPosition}\\((\\d+,\\d+(?:,\\d)?)\\),new${this.javaPosition}\\((\\d+,\\d+(?:,\\d)?)\\)(?:,(\\d+))?\\)` +
+                           `)`;
+        var re = new RegExp(areasPattern,"mg");
+        var match;
+        while ((match = re.exec(text))) {
+            if (match[1] !== undefined) {
+                var values = match[1].split(",");
+                var z = values.length == 4 ? 0 : values[4];
+                areas.add(new Area(new Position(values[0], values[1], z), new Position(values[2], values[3], z)));
+            } else {
+                var pos1Values = match[2].split(",");
+                var pos1Z = pos1Values.length == 2 ? 0 : pos1Values[2];
+
+                var pos2Values = match[3].split(",");
+                var pos2Z = pos2Values.length == 2 ? 0 : pos2Values[2];
+                
+                if (match[4] !== undefined) {
+                    pos1Z = match[4];
+                    pos2Z = match[4];
+                }
+                
+                areas.add(new Area(new Position(pos1Values[0], pos1Values[1], pos1Z), new Position(pos2Values[0], pos2Values[1], pos2Z)));
+            }
+        }
+    }
+    
+    toJavaSingle(area) {
+        return `${this.javaArea}.rectangular(${area.startPosition.x}, ${area.startPosition.y}, ${area.endPosition.x}, ${area.endPosition.y}, ${area.endPosition.z})`;
+    }
+}
+
+class RSPeerPathConverter extends DreamBotPathConverter {
+
+    constructor() {
+        super();
+        this.javaArea = "Area.rectangular";
+        this.javaPosition = "Position";
+    }
+}
+
+class RSPeerPolyAreaConverter extends OSBotPolyAreaConverter {
+
+    constructor() {
+        super();
+        this.javaArea = "Area";
+        this.javaPosition = "Position";
+    }
+    
+    /*
+    API Doc:
+        https://rspeer.org/javadocs/org/rspeer/runetek/api/movement/position/Area.html
+        https://rspeer.org/javadocs/org/rspeer/runetek/api/movement/position/Position.html
+
+    Area.polygonal(int floorLevel, Position... tiles) 
+    Area.polygonal(Position... tiles) 
+    
+    Position(int worldX, int worldY)
+    Position(int worldX, int worldY, int floorLevel)
+    */
+    fromJava(text, polyarea) {
+        polyarea.removeAll();
+        text = text.replace(/\s/g, '');
+        
+        var floorLevelPattern = `${this.javaArea}\\.polygonal\\((\\d),`;
+        var re = new RegExp(floorLevelPattern, "mg");
+        var match = re.exec(text);
+        
+        var floorLevel = undefined;
+        
+        if (match) {
+            floorLevel = match[1];    
+        }
+
+        var positionsPattern = `new${this.javaPosition}\\((\\d+,\\d+(?:,\\d)?)\\)`;
+        var re = new RegExp(positionsPattern, "mg");
+        var match;
+        while ((match = re.exec(text))) {
+            var values = match[1].split(",");
+            
+            var z = values.length == 2 ? 0 : values[2];
+            
+            if (floorLevel !== undefined) {
+                z = floorLevel;
+            }
+            
+            polyarea.add(new Position(values[0], values[1], z));
+        }
+    }
+    
+    toJava(polyarea) {
+        if (polyarea.positions.length == 0) {
+            return "";
+        }
+        var output = `${this.javaArea} area = ${this.javaArea}.polygonal(\n    new ${this.javaPosition}[] {`;
+        for (var i = 0; i < polyarea.positions.length; i++) {
+            var position = polyarea.positions[i];
+            output += `\n        new ${this.javaPosition}(${position.x}, ${position.y}, ${position.z})`;
+            if (i !== polyarea.positions.length - 1) {
+                output += ",";
+            }
+        }
+        output += "\n    }\n);";
+        return output;
+    }
+}
+
 // Import converters
 var converters = {
     "OSBot": {
@@ -818,6 +955,11 @@ var converters = {
         "areas_converter": new DreamBotAreasConverter(),
         "path_converter": new DreamBotPathConverter(),
         "polyarea_converter": new DreamBotPolyAreaConverter()
+    },
+    "RSPeer": {
+        "areas_converter": new RSPeerAreasConverter(),
+        "path_converter": new RSPeerPathConverter(),
+        "polyarea_converter": new RSPeerPolyAreaConverter()
     }
 };
 
