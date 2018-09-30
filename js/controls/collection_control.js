@@ -24,6 +24,11 @@ import {RSPeerAreasConverter} from '../bot_api_converters/rspeer/rspeer_areas_co
 import {RSPeerPathConverter} from '../bot_api_converters/rspeer/rspeer_path_converter.js';
 import {RSPeerPolyAreaConverter} from '../bot_api_converters/rspeer/rspeer_polyarea_converter.js';
 
+import {QuantumBotAreasConverter} from '../bot_api_converters/quantumbot/quantumbot_areas_converter.js';
+import {QuantumBotPathConverter} from '../bot_api_converters/quantumbot/quantumbot_path_converter.js';
+import {QuantumBotPolyAreaConverter} from '../bot_api_converters/quantumbot/quantumbot_polyarea_converter.js';
+
+
 var converters = {
     "OSBot": {
         "areas_converter": new OSBotAreasConverter(),
@@ -44,6 +49,11 @@ var converters = {
         "areas_converter": new RSPeerAreasConverter(),
         "path_converter": new RSPeerPathConverter(),
         "polyarea_converter": new RSPeerPolyAreaConverter()
+    },
+    "QuantumBot": {
+        "areas_converter": new QuantumBotAreasConverter(),
+        "path_converter": new QuantumBotPathConverter(),
+        "polyarea_converter": new QuantumBotPolyAreaConverter()
     }
 };
 
