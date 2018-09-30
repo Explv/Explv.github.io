@@ -63,6 +63,9 @@ export class RSPeerAreasConverter extends OSBotAreasConverter {
     }
     
     toJavaSingle(area) {
+        if (area.startPosition.z == 0) {
+            return `${this.javaArea}.rectangular(${area.startPosition.x}, ${area.startPosition.y}, ${area.endPosition.x}, ${area.endPosition.y})`;
+        }
         return `${this.javaArea}.rectangular(${area.startPosition.x}, ${area.startPosition.y}, ${area.endPosition.x}, ${area.endPosition.y}, ${area.endPosition.z})`;
     }
 }
