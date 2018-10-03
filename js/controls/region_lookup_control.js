@@ -11,7 +11,7 @@ export var RegionLookupControl = L.Control.extend({
     onAdd: function (map) {
         var container = L.DomUtil.create('div', 'leaflet-bar leaflet-control');
         container.style.background = 'none';
-        container.style.width = '200px';
+        container.style.width = '130px';
         container.style.height = 'auto';
 
         var regionIDInput = L.DomUtil.create('input', 'leaflet-bar leaflet-control leaflet-control-custom', container);
