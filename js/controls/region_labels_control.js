@@ -7,17 +7,20 @@ import {Region,
         MIN_Y, MAX_Y,
         REGION_WIDTH, REGION_HEIGHT} from '../model/Region.js';
 
-var RegionLabelsCanvas = L.CanvasLayer.extend({
-
+var RegionLabelsCanvas = CanvasLayer.extend({
     setData: function (data) {
         this.needRedraw();
     },
 
     onDrawLayer: function (info) {
+        var zoom = this._map.getZoom();
+        
+        var fontSize = 0.15 * Math.pow(2, zoom);
+                
         var ctx = info.canvas.getContext('2d');
         ctx.clearRect(0, 0, info.canvas.width, info.canvas.height);
 
-        ctx.font = '10pt Calibri';
+        ctx.font = fontSize + 'px Calibri';
         ctx.fillStyle = 'white';
         ctx.textAlign = "center";
 
@@ -42,6 +45,8 @@ export var RegionLabelsControl = L.Control.extend({
     },
 
     onAdd: function (map) {
+        map.createPane('region-labels');
+        
         var container = L.DomUtil.create('div', 'leaflet-bar leaflet-control');
         container.style.background = 'none';
         container.style.width = '130px';
@@ -51,17 +56,18 @@ export var RegionLabelsControl = L.Control.extend({
         labelsButton.id = 'toggle-region-labels';
         labelsButton.innerHTML = 'Toggle Region Labels';
 
-        var regionLabelsCanvas = new RegionLabelsCanvas();
-
+        var regionLabelsCanvas = new RegionLabelsCanvas({pane: "region-labels"});
+        map.getPane("region-labels").style.display = "none";
+        map.addLayer(regionLabelsCanvas);
+        
         this.visible = false;
 
         L.DomEvent.on(labelsButton, 'click', () => {
             if (this.visible) {
-                map.removeLayer(regionLabelsCanvas);
+                map.getPane("region-labels").style.display = "none";
             } else {
-                map.addLayer(regionLabelsCanvas);
+                map.getPane("region-labels").style.display = "";
             }
-
             this.visible = !this.visible;
         }, this);
 
