@@ -15,9 +15,9 @@ export var CoordinatesControl = L.Control.extend({
         L.DomEvent.disableClickPropagation(container);
 
         var coordinatesForm = L.DomUtil.create('form', 'leaflet-bar leaflet-control leaflet-control-custom form-inline', container);
-
+        
         var formGroup = L.DomUtil.create('div', 'form-group', coordinatesForm);
-
+        
         this._xCoordInput = this._createInput("xCoord", "x", formGroup);
         this._yCoordInput = this._createInput("yCoord", "y", formGroup);
         this._zCoordInput = this._createInput("zCoord", "z", formGroup);
@@ -27,7 +27,7 @@ export var CoordinatesControl = L.Control.extend({
         return container;
     },
 
-    _createInput: function(id, title, container) {
+    _createInput: function(id, title, container, keyupFunc) {
         var coordInput = L.DomUtil.create('input', 'form-control coord', container);
         coordInput.type = 'text';
         coordInput.id = id;

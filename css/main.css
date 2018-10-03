@@ -127,6 +127,7 @@ input.leaflet-control-custom {
     color: white;
     border: none;
     border-right: 1px solid white;
+    border-radius: 0px;
 }
 
 .coord:last-child {
