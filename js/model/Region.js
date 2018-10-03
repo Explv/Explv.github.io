@@ -22,6 +22,13 @@ export class Region {
 	    return new Region(regionID);
 	}
 	
+    toCentrePosition() {
+        var position = this.toPosition();
+        position.x += REGION_WIDTH / 2;
+        position.y += REGION_HEIGHT / 2;
+        return position;
+    }
+    
 	toPosition() {
 	    var x = (this.id >> 8) << 6;
 		var y = (this.id & 0xFF) << 6;

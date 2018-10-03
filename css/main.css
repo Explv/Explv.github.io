@@ -109,7 +109,7 @@ html, body {
     display: none;
 }
 
-#location-lookup {
+input.leaflet-control-custom {
     padding: 5px;
     border-radius: 4px;
 }
@@ -240,4 +240,13 @@ a.leaflet-control-custom {
 .leaflet-control-custom-button:hover {
     background-color: #33b5e5 !important;
     color: #121212 !important;
+}
+
+input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+ 
+input[type="number"] {
+    -moz-appearance: textfield;
 }

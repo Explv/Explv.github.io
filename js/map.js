@@ -14,6 +14,7 @@ import {LocationLookupControl} from './controls/location_lookup_control.js';
 import {MapLabelControl} from './controls/map_label_control.js';
 import {PlaneControl} from './controls/plane_control.js';
 import {RegionLabelsControl} from './controls/region_labels_control.js';
+import {RegionLookupControl} from './controls/region_lookup_control.js';
 import {TitleLabel} from './controls/title_label.js';
 
 
@@ -51,6 +52,7 @@ $(document).ready(function () {
     map.addControl(new LocationLookupControl());
     map.addControl(new MapLabelControl());
     map.addControl(new CollectionControl());
+    map.addControl(new RegionLookupControl());
     map.addControl(new GridControl());
     map.addControl(new RegionLabelsControl());
     
