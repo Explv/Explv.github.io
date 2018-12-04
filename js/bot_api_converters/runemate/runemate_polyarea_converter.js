@@ -12,17 +12,6 @@ export class RuneMatePolyAreaConverter extends OSBotPolyAreaConverter {
         this.javaPosition = "Coordinate";
     }
     
-    /*
-    API Doc:
-        https://rspeer.org/javadocs/org/rspeer/runetek/api/movement/position/Area.html
-        https://rspeer.org/javadocs/org/rspeer/runetek/api/movement/position/Position.html
-
-    Area.polygonal(int floorLevel, Position... tiles) 
-    Area.polygonal(Position... tiles) 
-    
-    Position(int worldX, int worldY)
-    Position(int worldX, int worldY, int floorLevel)
-    */
     fromJava(text, polyarea) {
         polyarea.removeAll();
         text = text.replace(/\s/g, '');

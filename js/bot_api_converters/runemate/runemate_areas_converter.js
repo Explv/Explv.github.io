@@ -13,19 +13,6 @@ export class RuneMateAreasConverter extends OSBotAreasConverter {
         this.javaPosition = "Coordinate";
     }
     
-    /*
-    API Doc:
-        https://rspeer.org/javadocs/org/rspeer/runetek/api/movement/position/Area.html
-        https://rspeer.org/javadocs/org/rspeer/runetek/api/movement/position/Position.html
-
-    Area.rectangular(int minX, int minY, int maxX, int maxY)
-    Area.rectangular(int minX, int minY, int maxX, int maxY, int floorLevel) 
-    Area.rectangular(Position start, Position end) 
-    Area.rectangular(Position start, Position end, int floorLevel)
-    
-    Position(int worldX, int worldY)
-    Position(int worldX, int worldY, int floorLevel)
-    */
     fromJava(text, areas) {        
         areas.removeAll();
         text = text.replace(/\s/g, '');
