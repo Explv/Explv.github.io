@@ -28,6 +28,9 @@ import {QuantumBotAreasConverter} from '../bot_api_converters/quantumbot/quantum
 import {QuantumBotPathConverter} from '../bot_api_converters/quantumbot/quantumbot_path_converter.js';
 import {QuantumBotPolyAreaConverter} from '../bot_api_converters/quantumbot/quantumbot_polyarea_converter.js';
 
+import {RuneMateAreasConverter} from '../bot_api_converters/runemate/runemate_areas_converter.js';
+import {RuneMatePathConverter} from '../bot_api_converters/runemate/runemate_path_converter.js';
+import {RuneMatePolyAreaConverter} from '../bot_api_converters/runemate/runemate_polyarea_converter.js';
 
 var converters = {
     "OSBot": {
@@ -54,6 +57,11 @@ var converters = {
         "areas_converter": new QuantumBotAreasConverter(),
         "path_converter": new QuantumBotPathConverter(),
         "polyarea_converter": new QuantumBotPolyAreaConverter()
+    },
+    "RuneMate": {
+        "areas_converter": new RuneMateAreasConverter(),
+        "path_converter": new RuneMatePathConverter(),
+        "polyarea_converter": new RuneMatePolyAreaConverter()
     }
 };
 
