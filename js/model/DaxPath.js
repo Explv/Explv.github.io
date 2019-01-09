@@ -20,13 +20,19 @@ export class DaxPath {
                 start: this.positions[this.positions.length - 1],
                 end: position,
                 onSuccess: function (path) {
+                    let spacingStr = $("#dax-spacing").val();
+
+                    let spacing = spacingStr ? Math.max(0, parseInt(spacingStr, 10)) : 0;
+
                     for (let i = 0; i < path.length; i++) {
-                        self.positions.push(path[i]);
-                        var rectangle = path[i].toLeaflet(self.map);
-                        self.featureGroup.addLayer(rectangle);
-                        self.rectangles.push(rectangle);
-                        self.lines.push(self.createPolyline(self.positions[self.positions.length - 2], self.positions[self.positions.length - 1]));
-                        self.featureGroup.addLayer(self.lines[self.lines.length - 1]);
+                        self._addPosition(path[i]);
+
+                        if (i + spacing < path.length) {
+                            i += spacing;
+                        } else if (i !== path.length - 1) {
+                            self._addPosition(path[path.length - 1]);
+                            break;
+                        }
                     }
                     successCallback();
                 },
@@ -43,11 +49,20 @@ export class DaxPath {
                 }
             });
         } else {
-            this.positions.push(position);
-            var rectangle = position.toLeaflet(this.map);
-            this.featureGroup.addLayer(rectangle);
-            this.rectangles.push(rectangle);
+            this._addPosition(position);
             successCallback();
+        }
+    }
+
+    _addPosition(position) {
+        this.positions.push(position);
+        var rectangle = position.toLeaflet(this.map);
+        this.featureGroup.addLayer(rectangle);
+        this.rectangles.push(rectangle);
+
+        if (this.positions.length > 1) {
+            this.lines.push(this.createPolyline(this.positions[this.positions.length - 2], this.positions[this.positions.length - 1]));
+            this.featureGroup.addLayer(this.lines[this.lines.length - 1]);
         }
     }
 
