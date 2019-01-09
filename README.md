@@ -1,6 +1,13 @@
 # Explv.github.io
 
-How to generate map tiles (note that this will take a long time, and will generate an extremely large number of files):
+### Dax Path
+
+The Dax Path tool makes use of @itsdax great web walking API https://github.com/itsdax/Runescape-Web-Walker-Engine
+All credits to him.
+
+### Generating map tiles
+
+(note that this will take a long time, and will generate an extremely large number of files):
 
 1. Create map images for each plane using a map image dumper like https://github.com/kfricilone/OpenRS/blob/master/source/net/openrs/cache/tools/MapImageDumper.java
 
