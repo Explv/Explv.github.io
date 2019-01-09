@@ -13,7 +13,7 @@ export class DaxPath {
         this.rectangles = [];
     }
 
-    add(position) {
+    add(position, successCallback) {
         if (this.positions.length > 0) {
             let self = this;
             getPath({
@@ -28,6 +28,7 @@ export class DaxPath {
                         self.lines.push(self.createPolyline(self.positions[self.positions.length - 2], self.positions[self.positions.length - 1]));
                         self.featureGroup.addLayer(self.lines[self.lines.length - 1]);
                     }
+                    successCallback();
                 },
                 onError: function (start, end, errorMsg) {
                     Swal({
@@ -46,6 +47,7 @@ export class DaxPath {
             var rectangle = position.toLeaflet(this.map);
             this.featureGroup.addLayer(rectangle);
             this.rectangles.push(rectangle);
+            successCallback();
         }
     }
 

@@ -155,7 +155,12 @@ export var CollectionControl = L.Control.extend({
 
         var position = Position.fromLatLng(this._map, e.latlng, this._map.plane);
 
-        if (this._currentDrawable instanceof Areas) {
+        if (this._currentDrawable instanceof DaxPath) {
+            let self = this;
+            this._currentDrawable.add(position, function() {
+                self._outputCode();
+            });
+        } else if (this._currentDrawable instanceof Areas) {
             if (this._firstSelectedAreaPosition === undefined) {
                 this._firstSelectedAreaPosition = position;
             } else {
