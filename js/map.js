@@ -1,10 +1,6 @@
 'use strict';
 
 import {Position} from './model/Position.js';
-import {Path} from './model/Path.js';
-import {Area} from './model/Area.js';
-import {Areas} from './model/Areas.js';
-import {PolyArea} from './model/PolyArea.js';
 
 // Import controls
 import {CollectionControl} from './controls/collection_control.js';
@@ -19,8 +15,8 @@ import {RegionLabelsControl} from './controls/region_labels_control.js';
 import {RegionLookupControl} from './controls/region_lookup_control.js';
 import {TitleLabel} from './controls/title_label.js';
 
-
 $(document).ready(function () {
+
     var map = L.map('map', {
         //maxBounds: L.latLngBounds(L.latLng(-40, -180), L.latLng(85, 153))
         zoomControl: false,

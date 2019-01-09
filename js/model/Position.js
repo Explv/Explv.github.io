@@ -64,4 +64,8 @@ export class Position {
     equals(position) {
         return this.x === position.x && this.y === position.y && this.z === position.z;
     }
+
+    toString() {
+        return "(" + this.x + ", " + this.y + ", " + this.z + ")";
+    }
 };

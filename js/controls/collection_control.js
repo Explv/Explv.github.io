@@ -3,6 +3,7 @@
 import {Position} from '../model/Position.js';
 import {Area} from '../model/Area.js';
 import {Path} from '../model/Path.js';
+import {DaxPath} from '../model/DaxPath.js';
 import {Areas} from '../model/Areas.js';
 import {PolyArea} from '../model/PolyArea.js';
 
@@ -72,6 +73,7 @@ export var CollectionControl = L.Control.extend({
 
     onAdd: function (map) {
         this._path = new Path(this._map);
+        this._daxPath = new DaxPath(this._map);
         this._areas = new Areas(this._map);
         this._polyArea = new PolyArea(this._map);
 
@@ -103,6 +105,11 @@ export var CollectionControl = L.Control.extend({
         // Path control
         this._createControl('Path', container, function(e) {
             this._toggleCollectionMode(this._path, "path_converter");
+        });
+
+        // Dax Path control
+        this._createControl('Dax Path', container, function(e) {
+            this._toggleCollectionMode(this._daxPath, "path_converter");
         });
 
         // Undo control
