@@ -147,25 +147,24 @@ input.leaflet-control-custom {
 }
 
 #output-container {
-    overflow-y: scroll;
     padding: 0;
     background-color: #121212;
     border-right: 1px solid #FFFFFF;
 }
 
 #output-container .panel-default {
-
     background-color: #121212;
     border: none;
+    height:100%;
 }
 
 #output-container .panel-body, #output-container .panel-body pre {
-
-    padding: 0;
+    padding-right: 0;
 }
 
 #output-container .panel-body {
-    padding: 10px;
+    padding: 0 !important;
+    height: 70%;
 }
 
 #output-container code {
@@ -174,18 +173,23 @@ input.leaflet-control-custom {
 }
 
 #output-container .panel-heading {
-
     padding-top: 20px;
     background-color: #121212;
     color: #FFFFFF;
+    height: 30%;
 }
 
-#output-container pre {
+#code-output-panel {
+    height: 100%;
+}
 
+#code-output-pre {
     padding: 5px;
     background-color: #121212;
     border: none;
     margin: 0;
+    overflow-y:auto;
+    height: 100%;
 }
 
 #map-container {
