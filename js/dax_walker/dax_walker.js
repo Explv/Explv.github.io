@@ -2,9 +2,7 @@
 
 import { Position } from '../model/Position.js';
 
-const API_KEY = "sub_DPjcfqN4YkIxm8";
-const API_SECRET = "PUBLIC-KEY";
-const API_URL = "https://api.dax.cloud/walker/generatePath";
+const API_URL = "https://osrs-map.herokuapp.com/getPath";
 
 const errorMessageMapping = {
     "UNMAPPED_REGION": "Unmapped region",
