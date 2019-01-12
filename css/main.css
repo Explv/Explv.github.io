@@ -229,16 +229,12 @@ a.leaflet-control-custom {
     cursor: pointer;
 }
 
-.leaflet-control-custom-button:last-child {
-    border: none !important;
-}
-
-.leaflet-control-custom-button.active {
+a.leaflet-control-custom.active {
     background-color: #33b5e5 !important;
     color: #121212 !important;
 }
 
-.leaflet-control-custom-button:hover {
+a.leaflet-control-custom:hover {
     background-color: #33b5e5 !important;
     color: #121212 !important;
 }

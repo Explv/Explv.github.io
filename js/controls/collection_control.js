@@ -94,22 +94,22 @@ export var CollectionControl = L.Control.extend({
 
         // Area control
         this._createControl('Area', container, function(e) {
-            this._toggleCollectionMode(this._areas, "areas_converter");
+            this._toggleCollectionMode(this._areas, "areas_converter", e.target);
         });        
 
         // Poly Area control
         this._createControl('Poly Area', container, function(e) {
-            this._toggleCollectionMode(this._polyArea, "polyarea_converter");
+            this._toggleCollectionMode(this._polyArea, "polyarea_converter", e.target);
         });
 
         // Path control
         this._createControl('Path', container, function(e) {
-            this._toggleCollectionMode(this._path, "path_converter");
+            this._toggleCollectionMode(this._path, "path_converter", e.target);
         });
 
         // Dax Path control
         this._createControl('Dax Path', container, function(e) {
-            this._toggleCollectionMode(this._daxPath, "path_converter");
+            this._toggleCollectionMode(this._daxPath, "path_converter", e.target);
         });
 
         // Undo control
@@ -205,7 +205,9 @@ export var CollectionControl = L.Control.extend({
         }
     },
 
-    _toggleCollectionMode: function(drawable, converter) {
+    _toggleCollectionMode: function(drawable, converter, element) {
+        $("a.leaflet-control-custom.active").removeClass("active");
+
         if (this._currentDrawable === drawable) {
             this._editing = false;
 
@@ -226,6 +228,7 @@ export var CollectionControl = L.Control.extend({
         }
 
         this._editing = true;
+        $(element).addClass("active");
         
         this._currentConverter = converter;
 
