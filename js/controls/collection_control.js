@@ -139,6 +139,23 @@ export var CollectionControl = L.Control.extend({
         $("#code-output").on('input propertychange paste', () => context._loadFromText());
         $("#bot-api").on('change', () => context._outputCode());
 
+        $("#copy-to-clipboard").on('click', () => {
+            var $temp = $("<textarea>");
+            $("body").append($temp);
+            $temp.val($("#code-output").text()).select();
+            document.execCommand("copy");
+            $temp.remove();
+
+            Swal({
+                position: 'top-end',
+                type: 'success',
+                title: `Copied to clipboard`,
+                showConfirmButton: false,
+                timer: 6000,
+                toast: true,
+            });
+        });
+
         return container;
     },
     

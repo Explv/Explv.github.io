@@ -44,7 +44,6 @@ export class DaxPath {
                         showConfirmButton: false,
                         timer: 6000,
                         toast: true,
-                        backdrop: false
                     });
                 }
             });

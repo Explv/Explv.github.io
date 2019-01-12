@@ -169,7 +169,6 @@ input.leaflet-control-custom {
 
 #output-container code {
     color: #eee8d5;
-    background-color: #121212;
 }
 
 #output-container .panel-heading {
@@ -184,7 +183,7 @@ input.leaflet-control-custom {
 }
 
 #code-output-pre {
-    padding: 5px;
+    padding: 10px;
     background-color: #121212;
     border: none;
     margin: 0;
