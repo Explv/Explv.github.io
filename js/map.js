@@ -51,7 +51,7 @@ $(document).ready(function () {
     map.addControl(new PlaneControl());
     map.addControl(new LocationLookupControl());
     map.addControl(new MapLabelControl());
-    map.addControl(new CollectionControl());
+    map.addControl(new CollectionControl({ position: 'topright' }));
     map.addControl(new RegionLookupControl());
     map.addControl(new GridControl());
     map.addControl(new RegionLabelsControl());

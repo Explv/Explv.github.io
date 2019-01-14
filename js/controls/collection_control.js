@@ -92,6 +92,25 @@ export var CollectionControl = L.Control.extend({
         container.style.width = '70px';
         container.style.height = 'auto';
 
+        // Copy to clipboard control
+        this._createControl('<i class="fa fa-copy"></i>', container, function(e) {
+            this._copyCodeToClipboard();
+        });
+
+        // Settings control
+        this._createControl('<i class="fa fa-cog"></i>', container, function(e) {
+            if ($("#settings-panel").is(":visible")) {
+                $("#settings-panel").hide("slide", {direction: "right"}, 300);
+            } else {
+                if (this._currentDrawable !== undefined) {
+                    this._toggleCollectionMode();
+                }
+
+                $("#settings-panel").css('display', 'flex').hide();
+                $("#settings-panel").show("slide", {direction: "right"}, 300);
+            }
+        });
+
         // Area control
         this._createControl('Area', container, function(e) {
             this._toggleCollectionMode(this._areas, "areas_converter", e.target);
@@ -138,23 +157,6 @@ export var CollectionControl = L.Control.extend({
         $("#output-type").on('change', () => context._outputCode());
         $("#code-output").on('input propertychange paste', () => context._loadFromText());
         $("#bot-api").on('change', () => context._outputCode());
-
-        $("#copy-to-clipboard").on('click', () => {
-            var $temp = $("<textarea>");
-            $("body").append($temp);
-            $temp.val($("#code-output").text()).select();
-            document.execCommand("copy");
-            $temp.remove();
-
-            Swal({
-                position: 'top-end',
-                type: 'success',
-                title: `Copied to clipboard`,
-                showConfirmButton: false,
-                timer: 6000,
-                toast: true,
-            });
-        });
 
         return container;
     },
@@ -225,10 +227,10 @@ export var CollectionControl = L.Control.extend({
     _toggleCollectionMode: function(drawable, converter, element) {
         $("a.leaflet-control-custom.active").removeClass("active");
 
-        if (this._currentDrawable === drawable) {
+        if (this._currentDrawable === drawable || drawable === undefined) {
             this._editing = false;
 
-            this._toggleOutputContainer();
+            $("#code-output-panel").hide("slide", {direction: "right"}, 300);
 
             this._firstSelectedAreaPosition = undefined;
             this._map.removeLayer(this._currentDrawable.featureGroup);
@@ -244,14 +246,16 @@ export var CollectionControl = L.Control.extend({
             return;
         }
 
+        if ($("#settings-panel").is(":visible")) {
+            $("#settings-panel").hide("slide", {direction: "right"}, 300);
+        }
+
         this._editing = true;
         $(element).addClass("active");
         
         this._currentConverter = converter;
 
-        if ($("#output-container").css('display') == 'none') {
-            this._toggleOutputContainer();
-        }
+        $("#code-output-panel").show("slide", {direction: "right"}, 300);
 
         if (this._currentDrawable !== undefined) {
             this._map.removeLayer(this._currentDrawable.featureGroup);
@@ -272,19 +276,6 @@ export var CollectionControl = L.Control.extend({
         this._outputCode();
     },
 
-    _toggleOutputContainer: function() {
-        if ($("#output-container").css('display') == 'none') {
-            $("#map-container").removeClass("col-lg-12 col-md-12 col-sm-12 col-xs-12");
-            $("#map-container").addClass("col-lg-9 col-md-7 col-sm-8 col-xs-8");
-            $("#output-container").show();
-        } else {
-            $("#output-container").hide();
-            $("#map-container").removeClass("col-lg-9 col-md-7 col-sm-8 col-xs-8");
-            $("#map-container").addClass("col-lg-12 col-md-12 col-sm-12 col-xs-12");
-        }
-        this._map.invalidateSize();
-    },
-
     _outputCode: function() {        
         var output = "";
 
@@ -301,5 +292,22 @@ export var CollectionControl = L.Control.extend({
             var botAPI = $("#bot-api option:selected").text();
             converters[botAPI][this._currentConverter].fromJava($("#code-output").text(), this._currentDrawable);
         }
+    },
+
+    _copyCodeToClipboard: function() {
+        var $temp = $("<textarea>");
+        $("body").append($temp);
+        $temp.val($("#code-output").text()).select();
+        document.execCommand("copy");
+        $temp.remove();
+
+        Swal({
+            position: 'top',
+            type: 'success',
+            title: `Copied to clipboard`,
+            showConfirmButton: false,
+            timer: 6000,
+            toast: true,
+        });
     }
 });
