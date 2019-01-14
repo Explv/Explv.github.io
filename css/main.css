@@ -167,8 +167,9 @@ input.leaflet-control-custom {
     height: 70%;
 }
 
-#output-container code {
+#code-output {
     color: #eee8d5;
+    outline:none!important;
 }
 
 #output-container .panel-heading {
