@@ -11,7 +11,7 @@ export var GridControl = L.Control.extend({
     },
 
     onAdd: function (map) {
-        var container = L.DomUtil.create('div', 'leaflet-bar leaflet-control');
+        var container = L.DomUtil.create('div', 'leaflet-bar leaflet-control noselect');
         container.style.background = 'none';
         container.style.width = '130px';
         container.style.height = 'auto';

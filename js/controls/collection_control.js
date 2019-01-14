@@ -87,7 +87,7 @@ export var CollectionControl = L.Control.extend({
         this._drawnMouseArea = undefined;    
         this._editing = false;
 
-        var container = L.DomUtil.create('div', 'leaflet-bar leaflet-control');
+        var container = L.DomUtil.create('div', 'leaflet-bar leaflet-control noselect');
         container.style.background = 'none';
         container.style.width = '70px';
         container.style.height = 'auto';

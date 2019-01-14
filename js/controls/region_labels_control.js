@@ -47,7 +47,7 @@ export var RegionLabelsControl = L.Control.extend({
     onAdd: function (map) {
         map.createPane('region-labels');
         
-        var container = L.DomUtil.create('div', 'leaflet-bar leaflet-control');
+        var container = L.DomUtil.create('div', 'leaflet-bar leaflet-control noselect');
         container.style.background = 'none';
         container.style.width = '130px';
         container.style.height = 'auto';
