@@ -1,9 +1,9 @@
 'use strict';
 
-export const MAP_HEIGHT_PX = 270080; // Total height of the map in px at max zoom level
+export const MAP_HEIGHT_PX = 296704; // Total height of the map in px at max zoom level
 export const RS_TILE_WIDTH_PX = 32, RS_TILE_HEIGHT_PX = 32; // Width and height in px of an rs tile at max zoom level
 export const RS_OFFSET_X = 1152; // Amount to offset x coordinate to get correct value
-export const RS_OFFSET_Y = 9928; // Amount to offset y coordinate to get correct value
+export const RS_OFFSET_Y = 8328; // Amount to offset y coordinate to get correct value
 
 export class Position {
 
@@ -14,6 +14,7 @@ export class Position {
     }
 
     static fromLatLng(map, latLng, z) {
+        console.log(map.getSize().y);
         var point = map.project(latLng, map.getMaxZoom());
         var y = MAP_HEIGHT_PX - point.y;
         y = Math.round((y - RS_TILE_HEIGHT_PX) / RS_TILE_HEIGHT_PX) + RS_OFFSET_Y;
@@ -42,7 +43,7 @@ export class Position {
     toLeaflet(map) {
         var point = map.project(this.toLatLng(map), map.getMaxZoom());
         var startX = (Math.floor(point.x / RS_TILE_WIDTH_PX) * RS_TILE_WIDTH_PX) + (RS_TILE_WIDTH_PX / 4);
-        var startY = (Math.floor(point.y / RS_TILE_HEIGHT_PX) * RS_TILE_HEIGHT_PX) - (RS_TILE_HEIGHT_PX / 4);
+        var startY = (Math.floor(point.y / RS_TILE_HEIGHT_PX) * RS_TILE_HEIGHT_PX);
         var endX = startX + RS_TILE_WIDTH_PX;
         var endY = startY + RS_TILE_HEIGHT_PX;
         var startLatLng = map.unproject(L.point(startX, startY), map.getMaxZoom());

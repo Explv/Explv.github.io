@@ -21,7 +21,7 @@ $(document).ready(function () {
         //maxBounds: L.latLngBounds(L.latLng(-40, -180), L.latLng(85, 153))
         zoomControl: false,
         renderer: L.canvas()
-    }).setView([-82, -138], 7);
+    }).setView([-79, -137], 7);
 
     map.plane = 0;
 
@@ -29,7 +29,7 @@ $(document).ready(function () {
         if (map.tile_layer !== undefined) {
             map.removeLayer(map.tile_layer);
         }
-        map.tile_layer = L.tileLayer('https://raw.githubusercontent.com/Explv/osrs_map_full_20180601/master/' + map.plane + '/{z}/{x}/{y}.png', {
+        map.tile_layer = L.tileLayer('https://raw.githubusercontent.com/Explv/osrs_map_full_2019_01_23/master/' + map.plane + '/{z}/{x}/{y}.png', {
             minZoom: 4,
             maxZoom: 11,
             attribution: 'Map data',
