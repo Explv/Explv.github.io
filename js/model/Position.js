@@ -14,7 +14,6 @@ export class Position {
     }
 
     static fromLatLng(map, latLng, z) {
-        console.log(map.getSize().y);
         var point = map.project(latLng, map.getMaxZoom());
         var y = MAP_HEIGHT_PX - point.y;
         y = Math.round((y - RS_TILE_HEIGHT_PX) / RS_TILE_HEIGHT_PX) + RS_OFFSET_Y;

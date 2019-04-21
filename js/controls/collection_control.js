@@ -251,7 +251,7 @@ export var CollectionControl = L.Control.extend({
         }
 
         this._editing = true;
-        $(element).addClass("active");
+        $(element).closest("a.leaflet-control-custom").addClass("active");
         
         this._currentConverter = converter;
 

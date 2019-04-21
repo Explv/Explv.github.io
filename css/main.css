@@ -229,10 +229,6 @@ input.leaflet-control-custom {
     color: white !important;
 }
 
-.leaflet-control:hover {
-    color: #33b5e5 !important;
-}
-
 .leaflet-control-custom {
     margin: 0 !important;
     width: 100% !important;
@@ -250,14 +246,11 @@ a.leaflet-control-custom {
     cursor: pointer;
 }
 
-a.leaflet-control-custom.active {
-    background-color: #33b5e5 !important;
-    color: #121212 !important;
-}
-
-a.leaflet-control-custom:hover {
-    background-color: #33b5e5 !important;
-    color: #121212 !important;
+a.leaflet-control-custom.active,
+a.leaflet-control-custom:hover,
+a.leaflet-control-zoom-in:hover,
+a.leaflet-control-zoom-out:hover {
+    background-color: rgb(77, 77, 77) !important;
 }
 
 input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-inner-spin-button {
