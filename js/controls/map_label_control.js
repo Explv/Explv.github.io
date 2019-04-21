@@ -26,9 +26,9 @@ var MapLabelsCanvas = CanvasLayer.extend({
         var self = this;
         Locations.getLocations(function(locations) {
             for (var i in locations) {
-                //if (locations[location].z !== z) {
-                //    continue;
-                //}
+                if (locations[i].position.z !== info.layer._map.plane) {
+                    continue;
+                }
                 
                 var position = locations[i].position;
                 var latLng = position.toCentreLatLng(self._map);
@@ -63,10 +63,15 @@ export var MapLabelControl = L.Control.extend({
 
         this._enabled = true;
         
+        L.DomEvent.disableClickPropagation(container);
+
         this._mapLabelsCanvas = new MapLabelsCanvas({pane: "map-labels"});
         this._map.addLayer(this._mapLabelsCanvas);
-        
-        L.DomEvent.disableClickPropagation(container);
+
+        map.on('planeChanged', function() {
+            this._mapLabelsCanvas.drawLayer();
+        }, this);
+
         return container;
     },
 
