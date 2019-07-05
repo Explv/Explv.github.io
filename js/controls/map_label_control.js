@@ -11,31 +11,74 @@ var MapLabelsCanvas = CanvasLayer.extend({
 
     onDrawLayer: function (info) {
         var zoom = this._map.getZoom();
-        
-        var fontSize = 0.12 * Math.pow(2, zoom);
-        
+                
         var ctx = info.canvas.getContext('2d');
         ctx.clearRect(0, 0, info.canvas.width, info.canvas.height);
 
-        ctx.font = fontSize + 'px Arial';
-        ctx.fillStyle = 'white';
         ctx.textAlign = "center";
-        ctx.strokeStyle = 'black';
-        ctx.lineWidth = 2;
-
         var self = this;
         Locations.getLocations(function(locations) {
             for (var i in locations) {
                 if (locations[i].position.z !== info.layer._map.plane) {
                     continue;
                 }
+
+                let fontSize;
+                let fontColour;
+
+                // Scale the font, and change colour based on location size
+                switch (locations[i].size) {
+                    case 'default':
+                        fontSize = 0.08
+                        fontColour = 'white';
+                        break;
+                    case 'medium':
+                        fontSize = 0.10
+                        fontColour = 'white';
+                        break;
+                    case 'large':
+                        fontSize = 0.18
+                        fontColour = '#ffaa00';
+                }
+            
+                // Scale font size to match zoom
+                const fontSizeScaled =  fontSize * Math.pow(2, zoom);
+
+                ctx.font = `bold ${fontSizeScaled}px Arial` 
+                ctx.fillStyle = fontColour
                 
                 var position = locations[i].position;
                 var latLng = position.toCentreLatLng(self._map);
                 var canvasPoint = info.layer._map.latLngToContainerPoint(latLng);
                 
-                ctx.strokeText(locations[i].name, canvasPoint.x, canvasPoint.y);
-                ctx.fillText(locations[i].name, canvasPoint.x, canvasPoint.y);
+                const name = locations[i].name
+
+                const words = name.split(' ')
+
+                const lines = []
+
+                let line = "";
+                words.forEach(word => {
+                    if ((line + word).length < 10) {
+                        if (line !== "") {
+                            line += " "
+                        }
+                        line += word
+                    } else {
+                        lines.push(line);
+                        line = word;
+                    }
+                })
+                if (line !== "") {
+                    lines.push(line);
+                }
+
+                let y = canvasPoint.y;
+                lines.forEach(line => {
+                    ctx.strokeText(line, canvasPoint.x, y);
+                    ctx.fillText(line, canvasPoint.x, y);
+                    y += (fontSize + 0.02) * Math.pow(2, zoom);
+                })
             }
         });
     }

@@ -24,7 +24,8 @@ class Locations {
                 for (var i in locations) {
                     this.locations.push({
                         "name": locations[i].name,
-                        "position": new Position(locations[i].coords[0], locations[i].coords[1], locations[i].coords[2])
+                        "position": new Position(locations[i].coords[0], locations[i].coords[1], locations[i].coords[2]),
+                        "size": locations[i].size
                     });
                 }
                 
