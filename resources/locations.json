@@ -179,7 +179,7 @@
         { "name": "Lacerta Falls", "coords": [1383, 3473, 0], "size": "default" },
         { "name": "Land's End", "coords": [1509, 3428, 0], "size": "default" },
         { "name": "Lake Molch", "coords": [1369, 3650, 0], "size": "default" },
-        { "name": "Last Man Standing", "coords" [3456, 5824, 0], "size": "default" },
+        { "name": "Last Man Standing", "coords": [3456, 5824, 0], "size": "default" },
         { "name": "Lava Dragon Isle", "coords": [3197, 3825, 0], "size": "default" },
         { "name": "Lava Maze", "coords": [3075, 3845, 0], "size": "default" },
         { "name": "Lava Maze Dungeon", "coords": [3040, 10272, 0], "size": "default" },
