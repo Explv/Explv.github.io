@@ -13,39 +13,41 @@ export class RuneLiteAreasConverter extends OSBotAreasConverter {
         this.javaPosition = "WorldPoint";
     }
     
-    fromJava(text, areas) {        
+    fromJava(text, areas) {
         areas.removeAll();
         text = text.replace(/\s/g, '');
-        
-        var areasPattern = ``
-        
-        var areasPattern = `(?:` +
-                               `${this.javaArea}` + 
-                                   `\\(new${this.javaPosition}\\((\\d+,\\d+(?:,\\d)?)\\),new${this.javaPosition}\\((\\d+,\\d+(?:,\\d)?)\\)(?:,(\\d+))?\\)` +
-                           `)`;
+
+        var areasPattern = `(?:new${this.javaArea}\\((\\d+,\\d+,\\d+,\\d+(?:,\\d+)?)\\)|\\(new${this.javaPosition}\\((\\d+,\\d+,\\d)\\),new${this.javaPosition}\\((\\d+,\\d+,\\d)\\)(?:,(\\d))?\\))`;
         var re = new RegExp(areasPattern,"mg");
+
         var match;
         while ((match = re.exec(text))) {
-            
-            var pos1Values = match[1].split(",");
-            var pos1Z = pos1Values.length == 2 ? 0 : pos1Values[2];
+            if (match[1] !== undefined) {
+                var values = match[1].split(",");
 
-            var pos2Values = match[2].split(",");
-            var pos2Z = pos2Values.length == 2 ? 0 : pos2Values[2];
+                var x = Number(values[0]);
+                var y = Number(values[1]);
+                var width = Number(values[2]);
+                var height = Number(values[3]);
+
+                areas.add(new Area(new Position(x, y + height - 1, values[4]), new Position(x + width - 1, y, values[4])));
+            } else {
+                var pos1Values = match[2].split(",");
+                var pos1Z = match[4] !== undefined ? match[4] : pos1Values[2];
+
+                var pos2Values = match[3].split(",");
+                var pos2Z = match[4] !== undefined ? match[4] : pos2Values[2];
                 
-            if (match[4] !== undefined) {
-                pos1Z = match[4];
-                pos2Z = match[4];
+                areas.add(new Area(new Position(pos1Values[0], pos1Values[1], pos1Z), new Position(pos2Values[0], pos2Values[1], pos2Z)));
             }
-                
-            areas.add(new Area(new Position(pos1Values[0], pos1Values[1], pos1Z), new Position(pos2Values[0], pos2Values[1], pos2Z)));
         }
     }
     
     toJavaSingle(area) {
-        return `new ${this.javaArea}(` +
-               `new ${this.javaPosition}(${area.startPosition.x}, ${area.startPosition.y}, ${area.startPosition.z}), ` +
-               `new ${this.javaPosition}(${area.endPosition.x}, ${area.endPosition.y}, ${area.endPosition.z})` +
-               `)`;
+        var start = area.startPosition.x < area.endPosition.x ? area.startPosition.x : area.endPosition.x;
+        var end = area.startPosition.y < area.endPosition.y ? area.startPosition.y : area.endPosition.y;
+
+
+        return `new ${this.javaArea}(${start}, ${end}, ${Math.abs(area.startPosition.x - area.endPosition.x) + 1}, ${Math.abs(area.startPosition.y - area.endPosition.y) + 1}, ${area.endPosition.z})`;
     }
 }
