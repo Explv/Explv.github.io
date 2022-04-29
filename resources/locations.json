@@ -202,6 +202,7 @@
         { "name": "Lumber Yard", "coords": [3305, 3505, 0], "size": "default" },
         { "name": "Lumbridge Swamp Caves", "coords": [3169, 9571, 0], "size": "default" },
         { "name": "Lumbridge Swamp", "coords": [3184, 3179, 0], "size": "default" },
+        { "name": "Lumbridge Basement", "coords": [3213, 9620, 0], "size": "default" },
         { "name": "Lumbridge", "coords": [3224, 3218, 0], "size": "medium" },
         { "name": "Lunar Isle", "coords": [2130, 3873, 0], "size": "large" },
         { "name": "Mage Arena", "coords": [3105, 3932, 0], "size": "default" },
