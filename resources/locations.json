@@ -120,7 +120,6 @@
         { "name": "Fishing Platform", "coords": [2772, 3283, 0], "size": "default" },
         { "name": "Flax", "coords": [2744, 3443, 0], "size": "default" },
         { "name": "Foodhall", "coords": [1842, 3746, 0], "size": "default" },
-        { "name": "Forinthry Dungeon", "coords": [3211, 10150, 0], "size": "default" },
         { "name": "Fountain of Rune", "coords": [3378, 3891, 0], "size": "default" },
         { "name": "Forthos Ruin", "coords": [1674, 3574, 0], "size": "default" },
         { "name": "Forthos Dungeon", "coords": [1819, 9951, 0], "size": "default" },
