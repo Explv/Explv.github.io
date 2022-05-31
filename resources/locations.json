@@ -378,6 +378,7 @@
         { "name": "White Knights' Castle", "coords": [2969, 3341, 0], "size": "default" },
         { "name": "White Wolf Mountain", "coords": [2847, 3494, 0], "size": "default" },
         { "name": "Wilderness", "coords": [3144, 3775, 0], "size": "large" },
+        { "name": "Wilderness Slayer Cave", "coords": [3392, 10102, 0], "size": "default"},
         { "name": "Wintertodt", "coords": [1630, 4004, 0], "size": "medium" },
         { "name": "Witchaven", "coords": [2709, 3289, 0], "size": "default" },
         { "name": "Witchaven Dungeon", "coords": [2722, 9689, 0], "size": "default" },
