@@ -2,7 +2,7 @@
 
 import { Position } from '../model/Position.js';
 
-const API_URL = "https://osrs-map.herokuapp.com/getPath";
+const API_URL = "https://explv-map.siisiqf.workers.dev/";
 
 const errorMessageMapping = {
     "UNMAPPED_REGION": "Unmapped region",
