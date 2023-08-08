@@ -30,6 +30,9 @@ export function getPath({start, end, onSuccess, onError}) {
                 "x": end.x,
                 "y": end.y,
                 "z": end.z
+            },
+            "player": {
+                "members": true
             }
         }),
         dataType: 'json',
