@@ -30,6 +30,7 @@ $(document).ready(function () {
     var map = L.map('map', {
         //maxBounds: L.latLngBounds(L.latLng(-40, -180), L.latLng(85, 153))
         zoomControl: false,
+        zoomSnap: 0,
         renderer: L.canvas()
     });
 
