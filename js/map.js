@@ -31,6 +31,7 @@ $(document).ready(function () {
         //maxBounds: L.latLngBounds(L.latLng(-40, -180), L.latLng(85, 153))
         zoomControl: false,
         zoomSnap: 0,
+        zoomDelta: 0.25,
         renderer: L.canvas()
     });
 
