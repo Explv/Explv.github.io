@@ -77,7 +77,7 @@ var converters = {
         "path_converter": new RuneLitePathConverter(),
         "polyarea_converter": new RuneLitePathConverter()
     },
-    "PowBot": {
+	"PowBot": {
         "areas_converter": new PowBotAreasConverter(),
         "path_converter": new PowBotPathConverter(),
         "polyarea_converter": new PowBotPolyAreaConverter()
