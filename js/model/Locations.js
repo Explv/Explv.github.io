@@ -15,17 +15,16 @@ class Locations {
         }
         
         $.ajax({
-            url: "resources/locations.json",
+            url: "resources/map_labels.json",
             dataType: "json",
             context: this,
             success: function( data ) {
-                var locations = data["locations"];
-                
-                for (var i in locations) {
+                for (var i = 0; i < data.length; i++) {
                     this.locations.push({
-                        "name": locations[i].name,
-                        "position": new Position(locations[i].coords[0], locations[i].coords[1], locations[i].coords[2]),
-                        "size": locations[i].size
+                        "name": data[i].name,
+                        "position": new Position(data[i].worldX, data[i].worldY, data[i].plane),
+                        "size": data[i].textScale,
+                        "color": data[i].textColor
                     });
                 }
                 

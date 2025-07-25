@@ -23,22 +23,30 @@ var MapLabelsCanvas = CanvasLayer.extend({
                     continue;
                 }
 
+                // Map textScale values to font sizes
                 let fontSize;
-                let fontColour;
-
-                // Scale the font, and change colour based on location size
-                switch (locations[i].size) {
-                    case 'default':
-                        fontSize = 0.08
-                        fontColour = 'white';
-                        break;
-                    case 'medium':
-                        fontSize = 0.10
-                        fontColour = 'white';
-                        break;
-                    case 'large':
-                        fontSize = 0.18
-                        fontColour = '#ffaa00';
+                if (typeof locations[i].size === 'number') {
+                    switch (locations[i].size) {
+                        case 0:
+                            fontSize = 0.08; // default
+                            break;
+                        case 1:
+                            fontSize = 0.10; // medium
+                            break;
+                        case 2:
+                            fontSize = 0.18; // large
+                            break;
+                        default:
+                            fontSize = 0.08;
+                    }
+                } else {
+                    fontSize = 0.08; // fallback
+                }
+                
+                // Convert textColor from decimal to hex, with fallback
+                let fontColour = 'white';
+                if (locations[i].color) {
+                    fontColour = '#' + locations[i].color.toString(16).padStart(6, '0');
                 }
 
                 // Scale font size to match zoom
@@ -53,25 +61,31 @@ var MapLabelsCanvas = CanvasLayer.extend({
 
                 const name = locations[i].name
 
-                const words = name.split(' ')
-
+                // First split by <br> tags to handle explicit line breaks
+                const brLines = name.split('<br>')
                 const lines = []
 
-                let line = "";
-                words.forEach(word => {
-                    if ((line + word).length < 10) {
-                        if (line !== "") {
-                            line += " "
+                brLines.forEach(brLine => {
+                    const words = brLine.trim().split(' ')
+                    
+                    let line = "";
+                    words.forEach(word => {
+                        if ((line + word).length < 10) {
+                            if (line !== "") {
+                                line += " "
+                            }
+                            line += word
+                        } else {
+                            if (line !== "") {
+                                lines.push(line);
+                            }
+                            line = word;
                         }
-                        line += word
-                    } else {
+                    })
+                    if (line !== "") {
                         lines.push(line);
-                        line = word;
                     }
                 })
-                if (line !== "") {
-                    lines.push(line);
-                }
 
                 let y = canvasPoint.y;
                 lines.forEach(line => {

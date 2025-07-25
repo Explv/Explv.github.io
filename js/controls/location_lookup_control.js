@@ -23,7 +23,7 @@ export var LocationLookupControl = L.Control.extend({
         Locations.getLocations(function(locations) {
             var locationsArray = $.map(locations, function (value, key) {
                 return {
-                    label: value.name,
+                    label: value.name.replace(/<br>/g, ' '),
                     value: value.position
                 }
             });
