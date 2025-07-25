@@ -7,15 +7,17 @@ import 'sweetalert2/dist/sweetalert2.min.css';
 
 // Import JS dependencies
 import $ from 'jquery';
-import 'bootstrap/dist/js/bootstrap.min.js';
-import 'jquery-ui/ui/core.js';
-import 'jquery-ui/ui/widget.js';
-import 'jquery-ui/ui/widgets/selectmenu.js';
 import L from 'leaflet';
 import Swal from 'sweetalert2';
 
 // Make jQuery available globally (for existing code compatibility)
 window.$ = window.jQuery = $;
+
+// Import Bootstrap and jQuery UI after jQuery is globally available
+import 'bootstrap/dist/js/bootstrap.min.js';
+import 'jquery-ui/ui/core.js';
+import 'jquery-ui/ui/widget.js';
+import 'jquery-ui/ui/widgets/selectmenu.js';
 window.L = L;
 window.Swal = Swal;
 
