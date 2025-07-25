@@ -1,7 +1,7 @@
 import { defineConfig } from 'vite'
 
 export default defineConfig({
-  base: '/Explv.github.io/',
+  base: './',
   build: {
     outDir: 'dist',
     assetsDir: 'assets',
